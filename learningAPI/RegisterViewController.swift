@@ -9,20 +9,29 @@
 import UIKit
 
 class RegisterViewController: UIViewController, TakeRegisterDataDelegate {
-    func getRegisterData(registerAccount:RegisterAccount) {
+    var delegate:TakeDataDelegate?
+    fileprivate func toRegisterAccount(_ registerAccount: RegisterAccount) {
         API.register(registerAccount: registerAccount) { (result) in
             switch result{
                 
-            case .success(_):
-                self.alert(alertType: .succes, message: "註冊成功", reason: nil) {
-                    //123
+            case .success(let data):
+                self.alert(alertType: .succes, message: data.message, reason: nil) {
+                    self.delegate?.getToken(
+                        userName: registerAccount.email,
+                        passWord: registerAccount.passWord)
+                    self.dismiss(animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
+                self.errorHanlde(error)
             }
         }
     }
     
+    func getRegisterData(registerAccount:RegisterAccount) {
+        if registerFormatVerification(registerAccount){
+            toRegisterAccount(registerAccount)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,5 +45,5 @@ class RegisterViewController: UIViewController, TakeRegisterDataDelegate {
         }
         animate.startAnimation()
     }
-
+    
 }

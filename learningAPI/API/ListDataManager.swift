@@ -50,7 +50,7 @@ class ListDataManager{
     private func saveUserDefaults(){
 //        UserDefaults.standard.set(try? PropertyListEncoder().encode(alarmArray), forKey:"alarmArray")
     }
-    func loadList(completionHandler:@escaping()->Void) {
+    func loadList(completionHandler:@escaping()->Void){
         API.getList { (result) in
             switch result{
                 

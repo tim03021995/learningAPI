@@ -43,7 +43,7 @@ class RegisterView: UIView {
     var emailTextField: UITextField = {
         var textField = UITextField(frame: CGRect(x: 30, y: 25, width: 300, height: 50))
         textField.placeholder = "Email"
-        textField.text = "admin"
+       // textField.text = "admin"
         textField.center = CGPoint(x: ScreenSize.centerX.value, y: ScreenSize.centerY.value - 100 )
         textField.keyboardType = .emailAddress
         textField.clearButtonMode = .whileEditing
@@ -54,7 +54,7 @@ class RegisterView: UIView {
     var passwordTextField: UITextField = {
         var textField = UITextField(frame: CGRect(x: 30, y: 50, width: 300, height: 50))
         textField.placeholder = "Password"
-        textField.text = "00000000"
+       // textField.text = "00000000"
         textField.center = CGPoint(x: ScreenSize.centerX.value, y: ScreenSize.centerY.value  )
         textField.keyboardType = .emailAddress
         textField.clearButtonMode = .whileEditing
@@ -67,7 +67,7 @@ class RegisterView: UIView {
     var rePasswordTextField: UITextField = {
         var textField = UITextField(frame: CGRect(x: 30, y: 100, width: 300, height: 50))
         textField.placeholder = "Password"
-        textField.text = "00000000"
+        //textField.text = "00000000"
         textField.center = CGPoint(x: ScreenSize.centerX.value, y: ScreenSize.centerY.value + 100 )
         textField.keyboardType = .emailAddress
         textField.clearButtonMode = .whileEditing

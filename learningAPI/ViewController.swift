@@ -8,7 +8,7 @@
 
 import UIKit
 class ViewController: UIViewController,TakeDataDelegate{
-
+    
     override func loadView() {
         super .loadView()
         let loginView = LoginView()
@@ -18,37 +18,8 @@ class ViewController: UIViewController,TakeDataDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    func getAccountData(userName: String, passWord: String) {
-        getValue(email: userName, passWord: passWord)
-    }
-
-    fileprivate func errorHanlde(_ error: (NetworkError)) {
-        switch error {
-        case .invalidUrl:
-            print(error)
-        case .requestFailed(let error):
-            print(error)
-        case .invalidData:
-            print(error)
-        case .invalidResponse(let error):
-            self.alert(alertType: .error, message: error.message, reason: error.reason, action: nil)
-            self.alert(alertType: .error, message: error.message, reason: error.reason) {
-                //密碼清空
-            }
-            print(error)
-        case .invalidJSONDecoder:
-            print(error)
-        case .tokenError:
-            print(error)
-        case .nilData:
-            print(error)
-        case .nonHTTPResponse:
-            print(error)
-        }
-    }
-    
-    func getValue(email:String,passWord:String){
-        let account = Account(username: email, password: passWord)
+    func getToken(userName: String, passWord: String) {
+        let account = Account(username: userName, password: passWord)
         API.login(account: account) { (result) in
             switch result{
             case .success(let data):
@@ -62,9 +33,9 @@ class ViewController: UIViewController,TakeDataDelegate{
         }
     }
 
-    
     @objc func register(){
         let vc = RegisterViewController()
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
 }

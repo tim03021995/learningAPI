@@ -4,7 +4,7 @@
 //
 //  Created by Alvin Tseng on 2020/8/17.
 //  Copyright © 2020 Alvin Tseng. All rights reserved.
-//
+///Users/alvintseng/Downloads/learningAPI/learningAPI/LoginView.swift
 
 import Foundation
 class API{
@@ -73,7 +73,7 @@ class API{
                 }
                 switch response.statusCode
                 {
-                case 200:
+                case 201:
                     decodeData(data: data, complitionHandler: completionHandler)
                 default:
                     decodeData(data: data) { (res: Result<ErrorMessage, NetworkError>) in
@@ -138,7 +138,52 @@ class API{
         }
         task.resume()
     }
-    
+    static func createList(item:String,completionHandler: @escaping (Result<Message,NetworkError>) -> Void){
+        let parameters = ["item": item]
+        var request = URLRequest(url: URL(string: "http://35.185.131.56:8000/api/task")!,timeoutInterval: Double.infinity)
+        do {
+            let postData = try JSONSerialization.data(withJSONObject: parameters)
+            request.httpBody = postData
+        }catch {
+            completionHandler(.failure(.invalidJSONDecoder))
+        }
+        if let token = UserToken.share.token {
+            request.addValue(token, forHTTPHeaderField: "userToken")
+        }else{
+            completionHandler(.failure(.tokenError))
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                guard let data = data else {
+                    completionHandler(.failure(.nilData))
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    completionHandler(.failure(.nonHTTPResponse))
+                    return
+                }
+                switch response.statusCode
+                {
+                case 201:
+                    decodeData(data: data, complitionHandler: completionHandler)
+                default:
+                    decodeData(data: data) { (res: Result<ErrorMessage, NetworkError>) in
+                        switch res {
+                        case .success(let data):
+                            completionHandler(.failure(.invalidResponse(data)))
+                        case .failure:
+                            completionHandler(.failure(.invalidJSONDecoder))
+                        }
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
     static func deleteList(listElement:ListElement,completionHandler: @escaping (Result<Message,NetworkError>) -> Void){
         print(listElement.id)
         var request = URLRequest(url: URL(string: "http://35.185.131.56:8000/api/task/\(listElement.id)")!,timeoutInterval: Double.infinity)
@@ -164,7 +209,54 @@ class API{
         }
         task.resume()
     }
-    
+    static func updataList(listElement:ListElement,item:String,completionHandler: @escaping (Result<Message,NetworkError>) -> Void){
+        let parameters = ["item": item]
+        var request = URLRequest(url: URL(string: "http://35.185.131.56:8000/api/task/\(listElement.id)")!,timeoutInterval: Double.infinity)
+        do {
+            let postData = try JSONSerialization.data(withJSONObject: parameters)
+            request.httpBody = postData
+        }catch {
+            completionHandler(.failure(.invalidJSONDecoder))
+        }
+
+        print(request)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let token = UserToken.share.token {
+            request.addValue(token, forHTTPHeaderField: "userToken")
+        }else{
+            completionHandler(.failure(.tokenError))
+        }
+        
+        request.httpMethod = "PUT"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                guard let data = data else {
+                    completionHandler(.failure(.nilData))
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    completionHandler(.failure(.nonHTTPResponse))
+                    return
+                }
+                switch response.statusCode
+                {
+                case 201:
+                    decodeData(data: data, complitionHandler: completionHandler)
+                default:
+                    decodeData(data: data) { (res: Result<ErrorMessage, NetworkError>) in
+                        switch res {
+                        case .success(let data):
+                            completionHandler(.failure(.invalidResponse(data)))
+                        case .failure:
+                            completionHandler(.failure(.invalidJSONDecoder))
+                        }
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
     private static func decodeData<T:Codable>(data:Data ,complitionHandler: @escaping (Result<T, NetworkError>) -> Void){
         let decoder = JSONDecoder()
         do{
@@ -194,29 +286,26 @@ enum NetworkError: Error {
 
 struct Message:Codable{
     var message:String
+    //let content: Content?
 }
 struct ErrorMessage:Codable {
     var message:String
     var reason:String
 }
-//struct List:Codable{
-//    var no:Int
-//    var item:String
-//    var status:String
-//    var updateTime:Data
-//    var updateUser:String
-//    enum CodingKeys: String, CodingKey{
-//        case no,item,status
-//        case updateTime = "update_time"
-//        case updateUser = "update_user"
-//    }
-//    /*
-//     "no": 3,
-//     "item": "00000",
-//     "status": "未完成",
-//     "update_time": "2020-08-05 12:04:12",
-//     "update_user": "gill"
-//     */
+// MARK: - Content
+struct Content: Codable {
+    let item, status, updateUser: String
+    let no: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case item, status
+        case updateUser = "update_user"
+        case no
+    }
+}
+// MARK: - Reason
+//struct Reason: Codable {
+//    let username: [String]
 //}
 // MARK: - ListElement
 struct ListElement: Codable {
@@ -229,6 +318,7 @@ struct ListElement: Codable {
         case updateUser = "update_user"
     }
 }
+
 struct RegisterAccount{
     let email:String
     let passWord:String

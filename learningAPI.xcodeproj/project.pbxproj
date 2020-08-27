@@ -22,6 +22,8 @@
 		D2F8C6A824F4E4A800C7E09F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8C6A724F4E4A700C7E09F /* RegisterView.swift */; };
 		D2F8C6AC24F5EBEA00C7E09F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8C6AB24F5EBEA00C7E09F /* Extension.swift */; };
 		D2F8C6B024F5ED2400C7E09F /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8C6AF24F5ED2400C7E09F /* AlertFactory.swift */; };
+		D2F8C6B224F6048700C7E09F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8C6B124F6048700C7E09F /* ListView.swift */; };
+		D2F8C6B424F6341100C7E09F /* FormatVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8C6B324F6341100C7E09F /* FormatVerification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		D2F8C6A724F4E4A700C7E09F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D2F8C6AB24F5EBEA00C7E09F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D2F8C6AF24F5ED2400C7E09F /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		D2F8C6B124F6048700C7E09F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		D2F8C6B324F6341100C7E09F /* FormatVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatVerification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 				D2F8C6A724F4E4A700C7E09F /* RegisterView.swift */,
 				D29A298324EBA3F000EB55D3 /* LoginView.swift */,
 				D2F8C6AF24F5ED2400C7E09F /* AlertFactory.swift */,
+				D2F8C6B124F6048700C7E09F /* ListView.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				D2F8C6A524F4CFA500C7E09F /* RegisterViewController.swift */,
+				D2F8C6B324F6341100C7E09F /* FormatVerification.swift */,
 				D29A296F24EA2BCA00EB55D3 /* ViewController.swift */,
 				D2EDD61624F378C700A45A82 /* NcViewController.swift */,
 				D2AD1F7124EBCBF500CED300 /* ListViewController.swift */,
@@ -199,6 +205,7 @@
 				D29A298424EBA3F100EB55D3 /* LoginView.swift in Sources */,
 				D2F8C6A624F4CFA500C7E09F /* RegisterViewController.swift in Sources */,
 				D2F8C6A424F4A9FE00C7E09F /* ListDataManager.swift in Sources */,
+				D2F8C6B424F6341100C7E09F /* FormatVerification.swift in Sources */,
 				D2F8C6AC24F5EBEA00C7E09F /* Extension.swift in Sources */,
 				D2EDD61724F378C700A45A82 /* NcViewController.swift in Sources */,
 				D29A297024EA2BCA00EB55D3 /* ViewController.swift in Sources */,
@@ -206,6 +213,7 @@
 				D2F8C6A824F4E4A800C7E09F /* RegisterView.swift in Sources */,
 				D29A298224EA85E000EB55D3 /* UserToken.swift in Sources */,
 				D29A298024EA318200EB55D3 /* API.swift in Sources */,
+				D2F8C6B224F6048700C7E09F /* ListView.swift in Sources */,
 				D2F8C6B024F5ED2400C7E09F /* AlertFactory.swift in Sources */,
 				D29A296E24EA2BCA00EB55D3 /* SceneDelegate.swift in Sources */,
 				D2AD1F7224EBCBF500CED300 /* ListViewController.swift in Sources */,

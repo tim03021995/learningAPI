@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TakeDataDelegate{
-    func getAccountData(userName:String,passWord:String)
+    func getToken(userName:String,passWord:String)
 }
 class LoginView: UIView{
     var delegate:TakeDataDelegate?
@@ -79,8 +79,8 @@ class LoginView: UIView{
     }()
     var registerButton : UIButton = {
         var button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
-        button.setTitle("register", for: .normal)
-        button.titleLabel?.text = "register"
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.text = "Sign up"
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 20
         button.center = CGPoint(x: ScreenSize.centerX.value, y: ScreenSize.centerY.value + 250)
@@ -96,7 +96,7 @@ class LoginView: UIView{
     @objc func singIn(){
         let emailString = emailTextField.text ?? ""
         let passWordString = passwordTextField.text ?? ""
-        self.delegate?.getAccountData(userName: emailString, passWord: passWordString)
+        self.delegate?.getToken(userName: emailString, passWord: passWordString)
     }
     func add(){
         addSubview(backgroundImage)
